@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet,Text } from 'react-native';
 import { TextInput,Button } from 'react-native-paper';
-
-class login extends Component {
+class LoginScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,13 +38,13 @@ class login extends Component {
                 
             />
 
-            <Button style={styles.submit} contentStyle={{height: 50}} mode="contained" onPress={() => console.log(userName, password)}>
+            <Button style={styles.submit} contentStyle={{height: 50}} mode="contained" onPress={() => this.props.navigation.navigate}>
                 Submit
             </Button>
 
             <View style={styles.signupText} >
                 <Text>
-                    Don't have account? <Text onPress={()=>console.log("Route it to Sign Up component")}>Sign Up</Text>
+                    Don't have account? <Text onPress={()=>this.props.navigation.navigate('SignupScreen')}>Sign Up</Text>
                 </Text>
             </View>
         </View>
@@ -89,4 +88,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default login;
+export default LoginScreen;
