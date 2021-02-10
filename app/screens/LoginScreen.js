@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet,Text } from 'react-native';
+import { View, StyleSheet,Text, Image } from 'react-native';
 import { TextInput,Button } from 'react-native-paper';
 class LoginScreen extends Component {
   constructor(props) {
@@ -15,9 +15,7 @@ class LoginScreen extends Component {
       const {password} = this.state;
     return (
       <View style={styles.main}>
-        <Text style={styles.mainText}>
-            FoodPal 
-        </Text>
+        <Image source={require('../assets/logo.png')} style={styles.img} />
           <View style={styles.login}>
           <Text style={styles.loginText}>
               Login
@@ -35,7 +33,6 @@ class LoginScreen extends Component {
                 onChangeText={text => this.setState({password:text})}
                 foc
                 secureTextEntry={true}
-                
             />
 
             <Button style={styles.submit} contentStyle={{height: 50}} mode="contained" onPress={() => this.props.navigation.navigate}>
@@ -54,6 +51,10 @@ class LoginScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+    img:{
+        alignSelf:'center',
+        margin: 20
+    },
     main:{
         flex: 1,
         

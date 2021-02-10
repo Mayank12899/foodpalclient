@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet,Text } from 'react-native';
+import { View, StyleSheet,Text, Image } from 'react-native';
 import { TextInput,Button } from 'react-native-paper';
 
 class SignupScreen extends Component {
@@ -16,9 +16,7 @@ class SignupScreen extends Component {
       const {password} = this.state;
     return (
       <View style={styles.main}>
-        <Text style={styles.mainText}>
-            FoodPal 
-        </Text>
+        <Image source={require('../assets/logo.png')} style={styles.img} />
           <View style={styles.login}>
           <Text style={styles.loginText}>
               Signup
@@ -55,6 +53,10 @@ class SignupScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+    img:{
+        alignSelf:'center',
+        margin: 20
+      },
     main:{
         flex: 1,
         
