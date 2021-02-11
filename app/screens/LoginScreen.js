@@ -35,7 +35,7 @@ class LoginScreen extends Component {
                 secureTextEntry={true}
             />
 
-            <Button style={styles.submit} contentStyle={{height: 50}} mode="contained" onPress={() => this.props.navigation.navigate}>
+            <Button style={styles.submit} contentStyle={{height: 50}} mode="contained" onPress={() => this.props.navigation.navigate('MainScreen')}>
                 Submit
             </Button>
 
