@@ -8,12 +8,20 @@ import Login from './app/screens/LoginScreen';
 import {NavigationContainer} from '@react-navigation/native';
 // import Signup from './app/screens/signup';
 import AuthNavigator from './app/navigator/authNavigator';
-export default function App() {
+import {Provider} from 'react-redux'
+import { createStore } from "redux";
+import authReducer from './app/reducers/authReducer'
 
+
+
+export default function App() {
+  const store = createStore(authReducer);
   return (
+    <Provider store={store}>
     <NavigationContainer>
       <AuthNavigator />
     </NavigationContainer>
+    </Provider>
   );
 }
 

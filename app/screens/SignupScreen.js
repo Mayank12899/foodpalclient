@@ -2,42 +2,34 @@ import React, { Component } from 'react';
 import { View, StyleSheet,Text, Image } from 'react-native';
 import { TextInput,Button } from 'react-native-paper';
 
-class SignupScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        userName: "",
-        password: ""
-    };
-  }
-
-  render() {
-      const {userName} = this.state;
-      const {password} = this.state;
+function SignupScreen(){
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
+    const dispatch = useDispatch();
+          
     return (
       <View style={styles.main}>
         <Image source={require('../assets/logo.png')} style={styles.img} />
           <View style={styles.login}>
           <Text style={styles.loginText}>
-              Signup
+              Login
           </Text>
             <TextInput
                 label="Username"
                 value={userName}
-                onChangeText={text => this.setState({userName:text})}
+                onChangeText={text => setUserName(text)}
                 foc
             />
             <TextInput
                 style={styles.textin}
                 label="Password"
                 value={password}
-                onChangeText={text => this.setState({password:text})}
+                onChangeText={text => setPassword(text)}
                 foc
                 secureTextEntry={true}
-                
             />
 
-            <Button style={styles.submit} contentStyle={{height: 50}} mode="contained" onPress={() => console.log(userName, password)}>
+            <Button style={styles.submit} contentStyle={{height: 50}} mode="contained" onPress={() => dispatch(signIn({userName, password}))}>
                 Submit
             </Button>
 
@@ -49,8 +41,8 @@ class SignupScreen extends Component {
         </View>
       </View>
     );
-  }
 }
+
 
 const styles = StyleSheet.create({
     img:{

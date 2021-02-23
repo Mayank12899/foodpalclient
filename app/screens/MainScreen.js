@@ -1,25 +1,32 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { TextInput,Button } from 'react-native-paper';
-import QRCodeScanner from 'react-native-qrcode-scanner';
-import { RNCamera } from 'react-native-camera';
-
+import { View, StyleSheet } from 'react-native';
+import { TextInput,Button, Appbar, BottomNavigation, Text } from 'react-native-paper';
 export default class MainScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-    };
+      
   }
+}
+
 
   render() {
+    const {index, routes} = this.state;
     return (
-      <View style={styles.submit}>
+      <View>
+      <Appbar.Header>
+      <Appbar.BackAction />
+      <Appbar.Content title="QR Scanner" subtitle="Order at desired Restaurant" />
+      <Appbar.Action icon="magnify" />
+      <Appbar.Action icon="dots-vertical" />
+    </Appbar.Header>
+        <View>
           <Button style={styles.btn} contentStyle={{height: 50}} mode="contained" onPress={() => this.props.navigation.navigate('ScanScreen')}>
                 Scan QR Code
           </Button>
+        </View>
 
-          
-            
+      
       </View>
     );
   }
@@ -32,10 +39,13 @@ const styles = StyleSheet.create({
   submit:{
       flex: 1,
       padding: 30,
-      alignContent: 'center',
-      justifyContent: 'center'
+
   },
   btn:{
-       marginTop: 20,
+       marginTop: "80%",
+       alignContent: 'center',
+       justifyContent: 'center',
+       margin: 20
+      //  flex: 4,
   }
 })

@@ -1,18 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { View, StyleSheet,Text, Image } from 'react-native';
 import { TextInput,Button } from 'react-native-paper';
-class LoginScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        userName: "",
-        password: ""
-    };
-  }
+import {useSelector, useDispatch} from 'react-redux';
+import {signIn} from '../actions/Actions'
 
-  render() {
-      const {userName} = this.state;
-      const {password} = this.state;
+
+
+function LoginScreen(){
+
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
+    const dispatch = useDispatch();
+          
     return (
       <View style={styles.main}>
         <Image source={require('../assets/logo.png')} style={styles.img} />
@@ -23,19 +22,19 @@ class LoginScreen extends Component {
             <TextInput
                 label="Username"
                 value={userName}
-                onChangeText={text => this.setState({userName:text})}
+                onChangeText={text => setUserName(text)}
                 foc
             />
             <TextInput
                 style={styles.textin}
                 label="Password"
                 value={password}
-                onChangeText={text => this.setState({password:text})}
+                onChangeText={text => setPassword(text)}
                 foc
                 secureTextEntry={true}
             />
 
-            <Button style={styles.submit} contentStyle={{height: 50}} mode="contained" onPress={() => this.props.navigation.navigate('MainScreen')}>
+            <Button style={styles.submit} contentStyle={{height: 50}} mode="contained" onPress={() => dispatch(signIn({userName, password}))}>
                 Submit
             </Button>
 
@@ -48,7 +47,7 @@ class LoginScreen extends Component {
       </View>
     );
   }
-}
+
 
 const styles = StyleSheet.create({
     img:{
