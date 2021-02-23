@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet,Text, Image } from 'react-native';
 import { TextInput,Button } from 'react-native-paper';
+import {useSelector, useDispatch} from 'react-redux';
+import {signIn} from '../actions/Actions'
 
 function SignupScreen(){
     const [userName, setUserName] = useState('');
