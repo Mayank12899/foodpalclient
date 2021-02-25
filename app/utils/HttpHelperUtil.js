@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from 'axios';
 
-import Constants from "./Constants";
+import Constants from './Constants';
 // import Me from "./Me";
 
 // function getAuthHeader() {
@@ -11,15 +11,16 @@ import Constants from "./Constants";
 // }
 
 function handleResponse(response) {
-  const { status, data } = response;
+  const {status, data} = response;
   // if (status === 'success') Toast.success(message);
+  console.log('Handle Response');
   return data;
 }
 
 async function handleError(error) {
   if (error.response?.status === 401) {
-    localStorage.removeItem("me");
-
+    localStorage.removeItem('me');
+    console.log('Handle Error');
     // actions.unauthenticate()();
   }
   return Promise.reject(error.response?.data?.error);
@@ -36,7 +37,7 @@ async function handleError(error) {
 const instanceWithoutAuthHeader = axios.create({
   baseURL: Constants.Urls.apis.BASE_URL,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 

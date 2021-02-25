@@ -1,24 +1,26 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, Text, Image} from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
-import {useSelector, useDispatch} from 'react-redux';
 //import {signIn} from '../actions/Actions'
 
 import {authService} from '../services/auth.service';
 import Connector from '../utils/Connector';
 import PropTypes from 'prop-types';
 import store from '../utils/store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function LoginScreen({actions}) {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
 
   function login() {
-    authService.login(userName, password).then((me) => {
+    authService.login(userName, password).then(async (me) => {
       actions.saveMe(me);
       console.log(store.getState().auth);
       actions.authenticate();
+      let user = await AsyncStorage.getItem('me');
+      let op = JSON.parse(user);
+      console.log(op);
       //history.push('/dashboard');
     });
   }

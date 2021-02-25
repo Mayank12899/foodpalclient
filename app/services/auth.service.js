@@ -18,7 +18,7 @@ async function handleAuthenticate(me) {
 
 function login(name, password) {
   const payload = getUserPayload({name, password});
-  console.log(payload);
+  //console.log(payload);
 
   return HttpHelper.postWithoutAuth(Routes.LOGIN, payload).then(
     handleAuthenticate,
