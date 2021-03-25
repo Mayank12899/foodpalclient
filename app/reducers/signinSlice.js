@@ -8,13 +8,13 @@ import {
   export const authenticator = createAsyncThunk(
     'restaurant/signin',
     async (values, thunkAPI) => {
-        console.log(values.email);
+        console.log('Email:',values.email);
         console.log(values.password);
         //Instead of get restaurants we will authenticate here
         //We can have axios calls in one file like we did.
         const data = await axios({
             method: 'POST',
-            url: 'http://117.215.28.43/restaurant/signin',
+            url: 'http://10.0.2.2:5000/restaurant/signin',
             data:{
                 email: values.email,
                 password: values.password,
@@ -30,13 +30,14 @@ import {
             
             }
             else{
-                console.log("Bhaduhjad")
+                console.log("Bhaduhjad1")
                 // return thunkAPI.rejectWithValue("Bhaaad mai jaa");
             }
+            console.log(response);
             return(response);
 
         }).catch((err)=>{
-            // console.log("Bhaduhjad")
+            console.log("Error: ", err);
             return thunkAPI.rejectWithValue("Bhaaad mai jaa");
             
           })      
@@ -85,6 +86,9 @@ import {
           [authenticator.rejected]: (state, action) => {
             //   console.log(action);
               console.log("Rejected cause that's what you deserve")
+          },
+          [authenticator.pending]: (state, action) =>{
+            console.log('Authentication in process');
           }
       }
 })
