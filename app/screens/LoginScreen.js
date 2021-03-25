@@ -1,29 +1,30 @@
 import React, {useState} from 'react';
+import { useEffect } from 'react';
 import {View, StyleSheet, Text, Image} from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
-//import {signIn} from '../actions/Actions'
-
-import {authService} from '../services/auth.service';
+import { useDispatch, useSelector } from 'react-redux';
+import { authenticator } from '../reducers/signinSlice';
 import Connector from '../utils/Connector';
-import PropTypes from 'prop-types';
-import store from '../utils/store';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-function LoginScreen({actions}) {
+
+function LoginScreen({navigation}) {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-
-  function login() {
-    authService.login(userName, password).then(async (me) => {
-      actions.saveMe(me);
-      console.log(store.getState().auth);
-      actions.authenticate();
-      let user = await AsyncStorage.getItem('me');
-      let op = JSON.parse(user);
-      console.log(op);
-      //history.push('/dashboard');
-    });
+  const dispatch = useDispatch();
+  const islogged = useSelector((state) => state.signin.isLoggedIn)
+  const login= async() => {
+    const values = {
+      email: userName,
+      password: password
+    }
+    dispatch(await authenticator(values));
+    if(islogged==true){
+      navigation.navigate('AppNavigator')
+    }
   }
+  useEffect(()=>{
+    // console.log('Yeh hai:',islogged);
+  })
 
   return (
     <View style={styles.main}>

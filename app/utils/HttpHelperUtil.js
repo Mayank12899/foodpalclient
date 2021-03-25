@@ -14,6 +14,7 @@ function handleResponse(response) {
   const {status, data} = response;
   // if (status === 'success') Toast.success(message);
   console.log('Handle Response');
+  console.log(data);
   return data;
 }
 
