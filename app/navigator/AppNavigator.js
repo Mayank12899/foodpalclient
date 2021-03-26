@@ -2,9 +2,10 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from '@mdi/react'
 import { mdiAccount, mdiQrcodeScan } from '@mdi/js'
-import ScanScreen from '../screens/ScanScreen';
+// import ScanScreen from '../screens/ScanScreen';
 import MainScreen from '../screens/MainScreen';
 import { IconButton } from 'react-native-paper';
+import ScanNavigator from './ScanNavigator';
 // import { mdiQrcodeScan } from '@mdi/js';
 const Tab = createBottomTabNavigator();
 
@@ -18,7 +19,7 @@ const AppNavigator = () => (
         }}/>
         <Tab.Screen 
         name="ScanScreen" 
-        component={ScanScreen}
+        component={ScanNavigator}
         options={({navigation}) => ({
             // tabBarButton: () => <NewListingButton onPress={() => navigation.navigate("ScanScreen")}/>,
             // tabBarIcon: ({color,size}) => <Icon path={mdiQrcodeScan} color={color} size={size}/>

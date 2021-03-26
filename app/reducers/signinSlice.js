@@ -1,9 +1,11 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
     createSlice,
     createAsyncThunk,
     createEntityAdapter,
   } from '@reduxjs/toolkit'
   import axios from 'axios';
+// import { AsyncStorage } from 'react-native';
 
   export const authenticator = createAsyncThunk(
     'restaurant/signin',
@@ -14,12 +16,12 @@ import {
         //We can have axios calls in one file like we did.
         const data = await axios({
             method: 'POST',
-            url: 'http://10.0.2.2:5000/restaurant/signin',
+            url: 'http://192.168.1.37:5000/restaurant/signin',
             data:{
                 email: values.email,
                 password: values.password,
             }   
-          }).then((response)=>{
+          }).then(async (response)=>{
             // console.log(response.data);
             // localStorage.setItem("authToken", response.data.accessToken)
             if(response.status === 200){
@@ -27,11 +29,13 @@ import {
             // console.log(response.data);
             //Async store krenge idhr
             console.log('Ho gya')
+            console.log("Access Token::",response.data.accessToken);
+            await AsyncStorage.setItem("me", JSON.stringify(response.data.accessToken))
             
             }
             else{
                 console.log("Bhaduhjad1")
-                // return thunkAPI.rejectWithValue("Bhaaad mai jaa");
+                return thunkAPI.rejectWithValue("Bhaaad mai jaa");
             }
             console.log(response);
             return(response);
@@ -57,6 +61,7 @@ import {
           isLoggedIn: false,
           me: {},
           checked: false,
+          token:'',
       },
       reducers: {
           saveme: (state, action) => {
@@ -77,11 +82,12 @@ import {
       },
       extraReducers:{
           [authenticator.fulfilled]: (state, {payload}) => {
-            //   console.log("payload: ",payload);
-            //   console.log(state)
-              state.me = payload.data;
+              console.log("payload: ",payload.data);
+              
               state.isLoggedIn = true;
-            //   console.log(localStorage.getItem('me'))
+              state.me = payload;
+              state.token=payload.data.accessToken;
+              
           },
           [authenticator.rejected]: (state, action) => {
             //   console.log(action);

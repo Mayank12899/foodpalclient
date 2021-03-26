@@ -7,26 +7,35 @@ import {
 } from 'react-native';
 
 import QRCodeScanner from 'react-native-qrcode-scanner';
-import { RNCamera } from 'react-native-camera';
+import { useDispatch, useSelector } from 'react-redux';
+import { getRestaurant } from '../reducers/restaurantSlice';
 
-export default class ScanScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-  onSuccess = e => {
+export default function ScanScreen({navigation}){
+  const dispatch = useDispatch();
+  var mee = useSelector((state) => state.signin.token);
+  const getRest = () =>{
+    // console.log("We will get data");
+    // console.log(data);
+    dispatch(getRestaurant(mee));
+    // console.log("Me: ",mee);
+}
+
+ const onSuccess = e => {
     // Linking.openURL(e.data).catch(err =>
     //   console.error('An error occured', err)
     // );
     console.log(e.data);
+    var data= JSON.parse(e.data);
+    // console.log(data.id);
+    // getRest();
+    navigation.navigate('RestaurantScreen', {"id": data.id});
     //Redux --> DB --> then --> Navigate to Restraunt Menu 
   };
 
-  render() {
+ 
     return (
         <QRCodeScanner
-        onRead={this.onSuccess}
+        onRead={onSuccess}
         topContent={
           <Text style={styles.centerText}>
             Scan the QR Code
@@ -40,7 +49,7 @@ export default class ScanScreen extends Component {
       />
     );
   }
-}
+
 
 const styles = StyleSheet.create({
     centerText: {

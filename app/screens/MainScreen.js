@@ -1,17 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { TextInput,Button, Appbar, BottomNavigation, Text } from 'react-native-paper';
-export default class MainScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      
-  }
-}
-
-
-  render() {
-    const {index, routes} = this.state;
+export default function MainScreen({navigation}) {
     return (
       <View>
       <Appbar.Header>
@@ -21,16 +11,14 @@ export default class MainScreen extends Component {
       <Appbar.Action icon="dots-vertical" />
     </Appbar.Header>
         <View>
-          <Button style={styles.btn} contentStyle={{height: 50}} mode="contained" onPress={() => this.props.navigation.navigate('ScanScreen')}>
+          <Button style={styles.btn} contentStyle={{height: 50}} mode="contained" onPress={() =>navigation.navigate('ScanScreen')}>
                 Scan QR Code
           </Button>
         </View>
-
-      
       </View>
     );
-  }
 }
+
 
 const styles = StyleSheet.create({
   img:{
